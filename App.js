@@ -1,15 +1,33 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, ScrollView, Text, StyleSheet } from 'react-native';
 
 import FormikScreen from './src/screens/FormikScreen';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <Text>hello</Text>
-      <FormikScreen />
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
+        style={styles.scrollStyle}
+        contentContainerStyle={styles.contentContainerStyle}>
+        <FormikScreen />
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default App;
+
+export const styles = StyleSheet.create({
+  scrollStyle: {
+    width: '100%',
+    flex: 1,
+  },
+  contentContainerStyle: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
