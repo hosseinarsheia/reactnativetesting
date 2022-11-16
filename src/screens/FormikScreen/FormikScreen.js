@@ -40,6 +40,7 @@ const FormikScreen = props => {
             onBlur={handleBlur('email')}
             value={values.email}
             style={styles.TextInput}
+            placeholder="email"
           />
           {errors.email && <Text>{errors.email}</Text>}
           <TextInput
@@ -47,6 +48,7 @@ const FormikScreen = props => {
             onBlur={handleBlur('name')}
             value={values.name}
             style={styles.TextInput}
+            placeholder="name"
           />
           <Text>{values.isOn ? 'On' : 'Off'}</Text>
 
