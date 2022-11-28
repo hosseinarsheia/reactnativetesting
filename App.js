@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, StyleSheet } from 'react-native';
 
 import FormikScreen from './src/screens/FormikScreen';
+import MobxScreen from './src/screens/MobxScreen';
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
         keyboardShouldPersistTaps="always"
         style={styles.scrollStyle}
         contentContainerStyle={styles.contentContainerStyle}>
-        <FormikScreen />
+        {/* <FormikScreen /> */}
+        <MobxScreen />
       </ScrollView>
     </SafeAreaView>
   );

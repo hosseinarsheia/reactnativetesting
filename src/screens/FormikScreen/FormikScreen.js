@@ -4,20 +4,31 @@ import { Formik, useFormik } from 'formik';
 import { Icon, CheckBox } from '@rneui/themed';
 import * as yup from 'yup';
 
+import ss from './ss';
+
+// const validationSchema = yup.object({
+//   email: yup.string().nationalCode('test').required(),
+//   name: yup.string().required(),
+//   check: yup.boolean().oneOf([true], 'check box should selected').required(),
+//   mine: false,
+// });
+
 const validationSchema = yup.object({
-  email: yup.string().required(),
-  name: yup.string().required(),
-  isOn: yup.string().required(),
-  check: yup.boolean().oneOf([true], 'sss').required(),
+  // email: yup.string().nationalCode('test').required(),
+  // name: yup.string().required(),
+  // check: yup.boolean().oneOf([true], 'check box should selected').required(),
+  mine: yup
+    .bool()
+    .test('global-ok', 'you do not fulfill the requirements', function (value) {
+      return true;
+    }),
 });
 
 const FormikScreen = props => {
   return (
     <Formik
       validationSchema={validationSchema}
-      validateOnBlur
-      validateOnChange={false}
-      initialValues={{ email: '', name: '', isOn: false, check: false }}
+      initialValues={{ email: '', name: '', check: false }}
       onSubmit={(values, helpers) => {
         console.log('values', values);
 
@@ -34,7 +45,7 @@ const FormikScreen = props => {
         setFieldTouched,
       }) => (
         <View style={{ width: '90%' }}>
-          {console.log(' errors.check ', errors.check)}
+          {console.log('errors', errors)}
           <TextInput
             onChangeText={handleChange('email')}
             onBlur={handleBlur('email')}
@@ -42,7 +53,10 @@ const FormikScreen = props => {
             style={styles.TextInput}
             placeholder="email"
           />
-          {errors.email && <Text>{errors.email}</Text>}
+          {errors.email && touched.email && (
+            <Text style={styles.errorMessage}>{errors.email}</Text>
+          )}
+
           <TextInput
             onChangeText={handleChange('name')}
             onBlur={handleBlur('name')}
@@ -50,7 +64,9 @@ const FormikScreen = props => {
             style={styles.TextInput}
             placeholder="name"
           />
-          <Text>{values.isOn ? 'On' : 'Off'}</Text>
+          {errors.name && touched.name && (
+            <Text style={styles.errorMessage}>{errors.name}</Text>
+          )}
 
           <CheckBox
             center
@@ -61,17 +77,11 @@ const FormikScreen = props => {
               setFieldTouched('check');
             }}
           />
-
-          <Text>{errors.check}</Text>
+          {!values.check && touched.check && (
+            <Text style={styles.errorMessage}>{errors.check}</Text>
+          )}
 
           <Button onPress={handleSubmit} title="Submit" />
-
-          {/* <Button
-            title="setFieldValue "
-            onPress={() => {
-              setFieldValue('isOn', !values.isOn);
-            }}
-          /> */}
         </View>
       )}
     </Formik>
